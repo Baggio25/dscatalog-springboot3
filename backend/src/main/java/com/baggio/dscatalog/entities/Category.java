@@ -1,7 +1,9 @@
 package com.baggio.dscatalog.entities;
 
+import java.time.Instant;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "category")
+@Table(name = "tb_category")
 public class Category {
 
 	@Id
@@ -17,13 +19,17 @@ public class Category {
 	private Long id;
 	private String name;
 	
+	@Column(name = "created_at")
+	private Instant createdAt;
+	
 	public Category() {
 
 	}
 
-	public Category(Long id, String name) {
+	public Category(Long id, String name, Instant createdAt) {
 		this.id = id;
 		this.name = name;
+		this.createdAt = createdAt;
 	}
 
 	public Long getId() {
@@ -40,6 +46,14 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	@Override
