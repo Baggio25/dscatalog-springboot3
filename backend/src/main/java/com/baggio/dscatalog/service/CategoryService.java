@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.baggio.dscatalog.dto.CategoryDTO;
 import com.baggio.dscatalog.entities.Category;
 import com.baggio.dscatalog.repositories.CategoryRepository;
+import com.baggio.dscatalog.service.exceptions.EntityNotFoundException;
 
 @Service
 public class CategoryService {
@@ -18,13 +19,14 @@ public class CategoryService {
 	
 	public List<CategoryDTO> findAll() {
 		List<Category> categories = categoryRepository.findAll(); 
-		return categories.stream().map(category -> new CategoryDTO(category)).toList();
-		
+		return categories.stream().map(category -> new CategoryDTO(category)).toList();		
 	}
 	
 	public CategoryDTO findById(Long id) {
 		Optional<Category> categoryOpt =  categoryRepository.findById(id);
-		return new CategoryDTO(categoryOpt.get());
+		Category category = categoryOpt.orElseThrow(() -> new EntityNotFoundException("Entidade não encontrada"));
+		
+		return new CategoryDTO(category);
 	}
 	
 	
