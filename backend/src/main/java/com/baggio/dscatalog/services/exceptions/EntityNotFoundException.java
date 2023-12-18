@@ -1,4 +1,4 @@
-package com.baggio.dscatalog.service.exceptions;
+package com.baggio.dscatalog.services.exceptions;
 
 public class EntityNotFoundException extends RuntimeException {
 

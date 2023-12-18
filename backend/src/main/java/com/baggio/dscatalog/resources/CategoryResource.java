@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baggio.dscatalog.dto.CategoryDTO;
-import com.baggio.dscatalog.service.CategoryService;
+import com.baggio.dscatalog.services.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")

@@ -1,4 +1,4 @@
-package com.baggio.dscatalog.service;
+package com.baggio.dscatalog.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.baggio.dscatalog.dto.CategoryDTO;
 import com.baggio.dscatalog.entities.Category;
 import com.baggio.dscatalog.repositories.CategoryRepository;
-import com.baggio.dscatalog.service.exceptions.EntityNotFoundException;
+import com.baggio.dscatalog.services.exceptions.EntityNotFoundException;
 
 @Service
 public class CategoryService {
