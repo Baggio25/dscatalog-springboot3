@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baggio.dscatalog.dto.CategoryDTO;
 import com.baggio.dscatalog.entities.Category;
 import com.baggio.dscatalog.repositories.CategoryRepository;
+import com.baggio.dscatalog.services.exceptions.DatabaseException;
 import com.baggio.dscatalog.services.exceptions.ResourceNotFoundException;
 import com.baggio.dscatalog.util.Constants;
 
@@ -47,13 +49,25 @@ public class CategoryService {
 	@Transactional
 	public CategoryDTO update(Long id, CategoryDTO categoryDTO) {
 		try {
-		Category category = categoryRepository.getReferenceById(id);
-		category.setName(categoryDTO.getName());
-		category = categoryRepository.save(category);
-		
-		return new CategoryDTO(category);		
+			Category category = categoryRepository.getReferenceById(id);
+			category.setName(categoryDTO.getName());
+			category = categoryRepository.save(category);
+			
+			return new CategoryDTO(category);		
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+		}
+	}
+
+	public void delete(Long id) {
+		if(!categoryRepository.existsById(id)) {
+			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+		}
+		
+		try {
+			categoryRepository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(Constants.FALHA_DE_INTEGRIDADE);
 		}
 	}
 	
