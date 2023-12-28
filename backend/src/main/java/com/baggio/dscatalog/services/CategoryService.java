@@ -10,11 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baggio.dscatalog.dto.CategoryDTO;
 import com.baggio.dscatalog.entities.Category;
 import com.baggio.dscatalog.repositories.CategoryRepository;
-import com.baggio.dscatalog.services.exceptions.EntityNotFoundException;
+import com.baggio.dscatalog.services.exceptions.ResourceNotFoundException;
+import com.baggio.dscatalog.util.Constants;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CategoryService {
 
+	
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
@@ -27,7 +31,7 @@ public class CategoryService {
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
 		Optional<Category> categoryOpt =  categoryRepository.findById(id);
-		Category category = categoryOpt.orElseThrow(() -> new EntityNotFoundException("Entidade não encontrada"));
+		Category category = categoryOpt.orElseThrow(() -> new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA));
 		
 		return new CategoryDTO(category);
 	}
@@ -38,6 +42,19 @@ public class CategoryService {
 		category = categoryRepository.save(category);
 		
 		return new CategoryDTO(category);
+	}
+
+	@Transactional
+	public CategoryDTO update(Long id, CategoryDTO categoryDTO) {
+		try {
+		Category category = categoryRepository.getReferenceById(id);
+		category.setName(categoryDTO.getName());
+		category = categoryRepository.save(category);
+		
+		return new CategoryDTO(category);		
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+		}
 	}
 	
 	
