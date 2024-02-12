@@ -39,7 +39,7 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
 		Optional<Product> productOpt =  productRepository.findById(id);
-		Product product = productOpt.orElseThrow(() -> new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA));
+		Product product = productOpt.orElseThrow(() -> new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO));
 		
 		return new ProductDTO(product, product.getCategories());
 	}
@@ -62,13 +62,13 @@ public class ProductService {
 			
 			return new ProductDTO(product);		
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+			throw new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO);
 		}
 	}
 
 	public void delete(Long id) {
 		if(!productRepository.existsById(id)) {
-			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+			throw new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO);
 		}
 		
 		try {

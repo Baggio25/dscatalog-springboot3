@@ -34,7 +34,7 @@ public class CategoryService {
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
 		Optional<Category> categoryOpt =  categoryRepository.findById(id);
-		Category category = categoryOpt.orElseThrow(() -> new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA));
+		Category category = categoryOpt.orElseThrow(() -> new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO));
 		
 		return new CategoryDTO(category);
 	}
@@ -56,13 +56,13 @@ public class CategoryService {
 			
 			return new CategoryDTO(category);		
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+			throw new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO);
 		}
 	}
 
 	public void delete(Long id) {
 		if(!categoryRepository.existsById(id)) {
-			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+			throw new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO);
 		}
 		
 		try {

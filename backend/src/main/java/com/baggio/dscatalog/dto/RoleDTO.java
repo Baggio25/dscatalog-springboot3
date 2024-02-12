@@ -1,15 +1,12 @@
 package com.baggio.dscatalog.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.baggio.dscatalog.entities.Role;
 
 public class RoleDTO {
 
 	private Long id;
 	private String authority;	
-	private Set<UserDTO> users = new HashSet<>();
+	//private Set<UserDTO> users = new HashSet<>();
 
 	public RoleDTO() {
 
@@ -41,8 +38,6 @@ public class RoleDTO {
 		this.authority = authority;
 	}
 
-	public Set<UserDTO> getUsers() {
-		return users;
-	}
+
 	
 }

@@ -45,7 +45,7 @@ public class UserService {
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
 		Optional<User> userOpt =  userRepository.findById(id);
-		User user = userOpt.orElseThrow(() -> new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA));
+		User user = userOpt.orElseThrow(() -> new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO));
 		
 		return new UserDTO(user);
 	}
@@ -69,13 +69,13 @@ public class UserService {
 			
 			return new UserDTO(user);		
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+			throw new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO);
 		}
 	}
 
 	public void delete(Long id) {
 		if(!userRepository.existsById(id)) {
-			throw new ResourceNotFoundException(Constants.ENTIDADE_NAO_ENCONTRADA);
+			throw new ResourceNotFoundException(Constants.RECURSO_NAO_ENCONTRADO);
 		}
 		
 		try {
