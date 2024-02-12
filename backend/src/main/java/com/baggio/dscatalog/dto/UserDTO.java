@@ -11,19 +11,18 @@ public class UserDTO {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
 	
 	private Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO() {
 	}
 
-	public UserDTO(Long id, String firstName, String lastName, String email, String password) {
+	public UserDTO(Long id, String firstName, String lastName, String email) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.password = password;
+		//this.password = password;
 	}
 
 	public UserDTO(User user) {
@@ -31,7 +30,7 @@ public class UserDTO {
 		firstName = user.getFirstName();
 		lastName = user.getLastName();
 		email = user.getEmail();
-		password = user.getPassword();
+		//password = user.getPassword();
 		
 		user.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
@@ -67,15 +66,7 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+	
 	public Set<RoleDTO> getRoles() {
 		return roles;
 	}
