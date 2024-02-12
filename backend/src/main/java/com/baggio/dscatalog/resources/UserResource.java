@@ -20,6 +20,8 @@ import com.baggio.dscatalog.dto.UserDTO;
 import com.baggio.dscatalog.dto.UserInsertDTO;
 import com.baggio.dscatalog.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
@@ -40,7 +42,7 @@ public class UserResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> insert(@RequestBody UserInsertDTO userDTO) {
+	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO userDTO) {
 		UserDTO userNewDTO = userService.insert(userDTO);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -51,7 +53,7 @@ public class UserResource {
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> update(
-			@PathVariable Long id, @RequestBody UserDTO userDTO) {		
+			@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {		
 		userDTO = userService.update(id, userDTO);			
 		return ResponseEntity.ok(userDTO);
 	}

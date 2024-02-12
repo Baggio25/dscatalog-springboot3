@@ -5,11 +5,21 @@ import java.util.Set;
 
 import com.baggio.dscatalog.entities.User;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class UserDTO {
 
 	private Long id;
+	
+	@Size(min= 5, max = 60, message = "O campo [firstName] deve conter entre 3 e 60 caracteres")
+	@NotBlank(message = "O campo [firstName] é obrigatório.")
 	private String firstName;
 	private String lastName;
+	
+	@NotBlank(message = "O campo [email] é obrigatório.")
+	@Email(message = "Por favor entrar com e-mail válido.")
 	private String email;
 	
 	private Set<RoleDTO> roles = new HashSet<>();

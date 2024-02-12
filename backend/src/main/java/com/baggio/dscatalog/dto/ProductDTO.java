@@ -8,14 +8,30 @@ import java.util.Set;
 import com.baggio.dscatalog.entities.Category;
 import com.baggio.dscatalog.entities.Product;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 
 public class ProductDTO {
 
 	private Long id;
+	
+	@Size(min= 5, max = 60, message = "O campo [name] deve conter entre 3 e 60 caracteres")
+	@NotBlank(message = "O campo [name] é obrigatório.")
 	private String name;
+	
+	@NotBlank(message = "O campo [description] é obrigatório.")
 	private String description;
+	
+	@NotNull(message = "O campo [price] é obrigatório.")
+	@Positive(message = "o campo [price] deve ser positivo.")
 	private Double price;
 	private String imgUrl;
+	
+	@PastOrPresent(message = "A data não pode ser futura.")
 	private Instant date;
 	
 	private List<CategoryDTO> categories = new ArrayList<>();
