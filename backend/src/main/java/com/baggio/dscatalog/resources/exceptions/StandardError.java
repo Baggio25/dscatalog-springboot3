@@ -1,6 +1,7 @@
 package com.baggio.dscatalog.resources.exceptions;
 
 import java.time.Instant;
+import java.util.List;
 
 public class StandardError {
 
@@ -9,6 +10,7 @@ public class StandardError {
 	private String error;
 	private String message;
 	private String path;
+
 	
 	public StandardError() {
 	
