@@ -1,7 +1,6 @@
 package com.baggio.dscatalog.resources.exceptions;
 
 import java.time.Instant;
-import java.util.List;
 
 public class StandardError {
 

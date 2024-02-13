@@ -1,7 +1,10 @@
 package com.baggio.dscatalog.dto;
 
+import com.baggio.dscatalog.services.validation.UserInsertValid;
+
 import jakarta.validation.constraints.NotBlank;
 
+@UserInsertValid
 public class UserInsertDTO extends UserDTO{
 
 	@NotBlank(message = "O campo [password] é obrigatório")
