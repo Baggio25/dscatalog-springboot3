@@ -110,8 +110,7 @@ public class User implements UserDetails {
 			if (role.getAuthority().equals(roleName)) {
 				return true;
 			}
-		}
-		
+		}		
 		return false;
 	}
 

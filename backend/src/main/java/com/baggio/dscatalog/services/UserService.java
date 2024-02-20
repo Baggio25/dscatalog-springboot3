@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService{
 	private RoleRepository roleRepository;
 	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@Transactional(readOnly = true)
@@ -100,7 +100,7 @@ public class UserService implements UserDetailsService{
 		}
 		
 		User user = new User();
-		user.setEmail(username);
+		user.setEmail(result.get(0).getUsername());
 		user.setPassword(result.get(0).getPassword());
 		
 		for(UserDetailsProjection projection : result) {
