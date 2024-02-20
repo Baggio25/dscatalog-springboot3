@@ -29,21 +29,19 @@ public class ProductResource {
 	@Autowired
 	private ProductService productService;
 	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@GetMapping
 	public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
 		Page<ProductDTO> productPage = productService.findAll(pageable);		
 		return ResponseEntity.ok(productPage);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
 		ProductDTO dto = productService.findById(id);		
 		return ResponseEntity.ok(dto);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@PostMapping
 	public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO productDTO) {
 		productDTO = productService.insert(productDTO);
@@ -54,7 +52,7 @@ public class ProductResource {
 		return ResponseEntity.created(uri).body(productDTO);
 	}
 
-	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> update(
 			@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {		
@@ -62,6 +60,7 @@ public class ProductResource {
 		return ResponseEntity.ok(productDTO);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> delete(@PathVariable Long id) {		
 		productService.delete(id);			
