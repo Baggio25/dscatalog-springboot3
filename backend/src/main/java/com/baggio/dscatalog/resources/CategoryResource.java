@@ -1,10 +1,9 @@
 package com.baggio.dscatalog.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,9 +27,9 @@ public class CategoryResource {
 	private CategoryService categoryService;
 	
 	@GetMapping
-	public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
-		Page<CategoryDTO> categoryPage = categoryService.findAll(pageable);		
-		return ResponseEntity.ok(categoryPage);
+	public ResponseEntity<List<CategoryDTO>> findAll() {
+		List<CategoryDTO> categoryList = categoryService.findAll();		
+		return ResponseEntity.ok(categoryList);
 	}
 
 	@GetMapping(value = "/{id}")
